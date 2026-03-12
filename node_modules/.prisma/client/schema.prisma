@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Trabajador {
+  id                     Int       @id @default(autoincrement())
+  cedula                 String    @unique
+  nombre                 String
+  telefono               String
+  empresa                String
+  estatus_tramite        String
+  correo_contacto        String
+  contrato_certificacion String    @default("NO")
+  cedula_doc             String    @default("NO")
+  planillas_seg_soc      String    @default("NO")
+  cert_bancaria          String    @default("NO")
+  autorizacion_pago      String    @default("NO")
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  fecha_nacimiento       DateTime? @db.Date
+  ruta_pdf_contrato      String?
+  fecha_pago             DateTime? @db.Date
+  fecha_programada_pago  DateTime? @db.Date
+  numero_cuenta          String?   @db.VarChar(20)
+
+  @@map("trabajadores")
+}
